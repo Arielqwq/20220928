@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container {
+      width: 75%;
+      margin: auto;
+      padding: 1rem;
+      border: 1px solid #333;
+    }
+
+    .wrap {
+      border: 5px dashed #333;
+      margin: 50px;
+      padding: 50px 0;
+
+      position: relative;
+    }
+
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: #000;
+      color: white;
+      line-height: 100px;
+      text-align: center;
+      font-size: 2rem;
+      position: absolute;
+    }
+
+    /* 建立動畫 */
+    /* 步驟一，先建立一組關鍵影格(keyframes)，設定動畫名稱(名字自取) 
+      以及 from(0%) 狀態、to(100%) 狀態
+    */
+    @keyframes animation {
+      0% {
+        background-color: red;
+      }
+
+      50% {
+        background-color: green;
+
+      }
+
+      100% {
+        transform: translate(50vw, 0);
+        background-color: blue;
+      }
+    }
+
+    .animation {
+      /* 動畫名稱 */
+      animation-name: animation;
+      /* 持續時間 ms 或 s */
+      animation-duration: 2s;
+      /* 播放次數，預設 1，infinite 無限次 */
+      animation-iteration-count: 1;
+      /* 轉場速率
+         ease 預設值
+         linear 線性，維持等速
+         ease-in 由慢變快
+         ease-out 由快變慢
+         ease-in-out 由慢變快，由快變慢
+      */
+      /* transition-timing-function: ease-in-out; */
+      /* 更多的轉場速率：https://easings.net/ */
+      animation-timing-function: linear;
+      /*
+        normal 正向播放 => 0% 到 100% 播放
+        reverse 反向播放 => 100% 到 0% 播放
+        alternate 交替播放 => 奇數正向播放(0%~100%)，偶數反向播放(100%~0%)
+        alternate-reverse 交替播放 => 奇數反向播放(100%~0%)，偶數正向播放(0%~100%)
+      */
+      animation-direction: normal;
+      animation-delay: 1s;
+      /*
+        範例:當 animation-direction: normal 正向播放 0 => 100%
+        none => 動畫結束時回到沒有進入動畫的初始狀態
+        forwards => 停留在動畫最後一幀，會根據動畫播放方向 anination-direction 設定有所不同，正向播放最後一幀 100%(藍色)
+        backwards => 當有設定 delay(動畫等待時期)動畫一開始會停在第一幀(正向播放劉在 0%)，動畫結束後會到沒有進入動畫的初始狀態
+        both => 動畫一開始在第一幀(紅色)，結束停留在動畫最後一幀(藍色)，有 delay 時，最好設置 both
+      */
+      animation-fill-mode: both;
+
+      /* 縮寫 */
+      animation: animation 2s 3s 1 linear reverse both;
+    }
+
+    .multiple {
+      /* 各別動畫屬性，使用逗點隔開 */
+      animation-name: rotateIt, moveIt;
+      animation-duration: 3s, 6s;
+      /* 縮寫 */
+      animation: rotateIt 3s, moveIt 6s;
+    }
+
+    @keyframes rotateIt {
+      /* 0% {
+        transform: rotate(0deg);
+      } */
+
+      50% {
+        transform: rotate(360deg);
+      }
+
+      /* 100% {
+        transform: rotate(0deg);
+      } */
+    }
+
+    @keyframes moveIt {
+      0% {
+        margin-left: 0px;
+      }
+
+      50% {
+        margin-left: 100px;
+      }
+
+      100% {
+        margin-left: 0px;
+      }
+    }
+
+    /* @keyframes moveIt {
+      0% {
+        left: 0;
+      }
+
+      50% {
+        left: 1000px;
+      }
+
+      100% {
+        left: 0;
+      }
+    } */
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>動畫(animation)</h1>
+    <p>動畫與轉場的差異</p>
+    <h2>animation</h2>
+    <ul>
+      <li>可以設定關鍵影格(keyframes)控制動畫進度的狀態，產生更複雜的動畫。</li>
+      <li>網頁載入時自動發生，可以循環重複來回播放等等。</li>
+    </ul>
+    <h2>transition</h2>
+    <ul>
+      <li>要有觸發條件，兩種樣式狀態的改變，狀態通常為 :hover、:checked...等狀態。</li>
+      <li>無法在網頁載入時自動發生，而且是一次性且沒有循環效果，必須重新再觸發一次。</li>
+    </ul>
+    <div class="wrap">
+      <div class="box animation"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>可套用多個動畫</h2>
+    <div class="wrap">
+      <div class="box multiple"></div>
+    </div>
+  </div>
+</body>
+
+</html>
